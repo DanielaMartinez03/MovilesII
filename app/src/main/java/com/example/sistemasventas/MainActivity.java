@@ -25,6 +25,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     //Se genera un objeto para conectarse a la base de datos de firebase - Firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String idAtomaticoFB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,34 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnlist = findViewById(R.id.btnlist);
 
         //Eventos
+
+        btnedit.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           Map<String, Object> mSeller = new HashMap<>();
+                                           mSeller.put("idseller", idseller.getText().toString());
+                                           mSeller.put("fullname", fullname.getText().toString());
+                                           mSeller.put("email", email.getText().toString());
+                                           mSeller.put("password", password.getText().toString());
+                                           mSeller.put("totalcomision", 0);
+
+                                           //Actualizar el documento a la coleccion seller a traves de la tabla temporal mseller
+                                           db.collection("seller").document(idAtomaticoFB)
+                                                   .set(mSeller)
+                                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                       @Override
+                                                       public void onSuccess(Void unused) {
+                                                           Toast.makeText(MainActivity.this, "Vendedor actualizado correctamente", Toast.LENGTH_SHORT).show();
+                                                       }
+                                                   })
+                                                   .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(getApplicationContext(), "Error al guardar el vendedor", Toast.LENGTH_SHORT).show();
+                                                }
+                                                });
+                                       }
+                                   });
         btnsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,8 +87,13 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     if (!task.getResult().isEmpty()) {
+
                                         //La instantanea tiene informacion del documento
                                         for (QueryDocumentSnapshot document : task.getResult()) {
+                                            //Mostrar el Id de la BD
+
+                                            idAtomaticoFB = document.getId();
+
                                             //mostrar la informacion en cada de uno de los objetos referenciados
                                             fullname.setText(document.getString("fullname"));
                                             email.setText(document.getString("email"));
@@ -117,25 +151,24 @@ public class MainActivity extends AppCompatActivity {
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                     public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(getApplicationContext(), "Error al guardar el vendedor", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                        else {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(getApplicationContext(), "Error al guardar el vendedor", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        } else {
                                             Toast.makeText(getApplicationContext(), " Id ya registrado ", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
 
                             });
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), " Debe ingresar todos los datos", Toast.LENGTH_SHORT).show();
-                    }
+                }
             }
         });
     }
 }
+
 
