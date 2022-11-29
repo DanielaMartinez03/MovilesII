@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (!mIdseller.isEmpty() && !mFullname.isEmpty() && !mEmail.isEmpty() && !mPassword.isEmpty()) {
-                    //Buscar el IDseller
+                    //Buscar el IDseller para verificar si esta o no el id
 
                     db.collection("seller")
                             .whereEqualTo("idseller", idseller.getText().toString())
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(), " Debe ingresar todos los datos", Toast.LENGTH_SHORT).show();
-                }
+                    }
             }
         });
     }
