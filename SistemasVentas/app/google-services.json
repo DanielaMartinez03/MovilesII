@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613878822117",
+    "project_id": "sistemaventas-9cbc9",
+    "storage_bucket": "sistemaventas-9cbc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613878822117:android:76c4885bd049fc53fa100c",
+        "android_client_info": {
+          "package_name": "com.example.sistemasventas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613878822117-b96h4e87pqjjeolnnhujvcad01lknidp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB5YWsLmBDKxPSVFRgBdL9ObeMGwll7hY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613878822117-b96h4e87pqjjeolnnhujvcad01lknidp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
